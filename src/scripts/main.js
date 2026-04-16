@@ -7,6 +7,10 @@ const tableHead = document.querySelector('thead');
 tableBody.addEventListener('click', (e) => {
   const currentTarget = e.target.closest('tr');
 
+  if (!currentTarget) {
+    return;
+  }
+
   const activeRow = tableBody.querySelector('.active');
 
   if (activeRow) {
@@ -64,6 +68,8 @@ const nameText = document.createTextNode('Name: ');
 
 nameInput.dataset.qa = 'name';
 
+nameInput.name = 'name';
+
 nameLabel.append(nameText, nameInput);
 
 const positionLabel = document.createElement('label');
@@ -71,6 +77,8 @@ const positionInput = document.createElement('input');
 const positionText = document.createTextNode('Position: ');
 
 positionInput.dataset.qa = 'position';
+
+positionInput.name = 'position';
 
 positionLabel.append(positionText, positionInput);
 
@@ -82,6 +90,8 @@ ageInput.type = 'number';
 
 ageInput.dataset.qa = 'age';
 
+ageInput.name = 'age';
+
 ageLabel.append(ageText, ageInput);
 
 const salaryLabel = document.createElement('label');
@@ -92,6 +102,8 @@ salaryInput.type = 'number';
 
 salaryInput.dataset.qa = 'salary';
 
+salaryInput.name = 'salary';
+
 salaryLabel.append(salaryText, salaryInput);
 
 const citySelectLabel = document.createElement('label');
@@ -101,6 +113,8 @@ const citySelectText = document.createTextNode('Office: ');
 citySelectLabel.append(citySelectText, citySelect);
 
 citySelect.dataset.qa = 'office';
+
+citySelect.name = 'office';
 
 const cities = [
   'Tokyo',
@@ -122,6 +136,8 @@ for (const city of cities) {
 const save = document.createElement('button');
 
 save.textContent = 'Save to table';
+
+save.type = 'submit';
 
 form.append(
   nameLabel,
@@ -164,7 +180,11 @@ form.addEventListener('submit', (e) => {
     return showNotification('Wrong', 'error');
   }
 
-  if (positionInput.value === '' || salaryInput.value === '') {
+  if (positionInput.value === '') {
+    return showNotification('Wrong', 'error');
+  }
+
+  if (salaryInput.value === '') {
     return showNotification('Wrong', 'error');
   }
 
